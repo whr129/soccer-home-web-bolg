@@ -1,0 +1,61 @@
+<%- include ("header.ejs") %>
+
+<div class="px-4 py-5 my-5 text-center">
+  <% if (! locals.noImg) { %>
+    <h1 class="display-5 fw-bold text-body-emphasis">Team Information</h1>
+  <% } else { %>
+    <h1 class="display-5 fw-bold text-body-emphasis">Need Picture</h1>
+  <% } %>
+    <div class="col-lg-6 mx-auto">
+      <% if (! (locals.index + 1)) { %>
+          <form action="/submitTeam" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+              <div>Team Name</div>
+              <input type="input" class="form-control" name="teamName">
+            </div>
+            <div class="mb-3">
+              <div>Founding Year</div>
+              <input type="input" class="form-control" name="year">
+            </div>
+            <div class="mb-3">
+                <div>Stadium</div>
+              <input type="input" class="form-control" name="stadium">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Awards and brief history</label>
+                <textarea class="form-control" rows="4" placeholder="Enter your team's awards and brief history here" name="history"></textarea>
+            <div class="mb-3">
+              <label for="formFileLg" class="form-label">Upload your picture of team:</label>
+              <input class="form-control form-control-lg" id="formFileLg" type="file" name="teamPic">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+      <% } else { %>
+        <form action= <%= "/editTeamForm/" + index %> method="POST" enctype="multipart/form-data">
+          <div class="mb-3">
+            <div>Team Name</div>
+            <input type="input" class="form-control" value="<%= teamIfo[index].teamName %>" name="teamName">
+          </div>
+          <div class="mb-3">
+            <div>Founding Year</div>
+            <input type="input" class="form-control" value="<%= teamIfo[index].year %>" name="year">
+          </div>
+          <div class="mb-3">
+              <div>Stadium</div>
+            <input type="input" class="form-control" value="<%= teamIfo[index].stadium %>" name="stadium">
+          </div>
+          <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Awards and brief history</label>
+              <textarea class="form-control" rows="4" placeholder="Enter your team's awards and brief history here" name="history"><%= teamIfo[index].history %></textarea>
+          <div class="mb-3">
+            <label for="formFileLg" class="form-label">Upload your picture of team:</label>
+            <input class="form-control form-control-lg" id="formFileLg" type="file" name="teamPic">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      <% } %>
+            
+    </div>
+  </div>
+
+<%- include ("footer.ejs") %>

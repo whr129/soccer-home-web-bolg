@@ -1,0 +1,61 @@
+<%- include ("header.ejs") %>
+
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold text-body-emphasis">Match Information</h1>
+    <div class="col-lg-6 mx-auto">
+      <% if (! (locals.index + 1)) { %>
+          <form action="/submitMatch" method="POST">
+            <div class="mb-3">
+              <div>League Name</div>
+              <input type="input" class="form-control" name="league">
+            </div>
+            <div class="mb-3">
+              <div>TeamA</div>
+              <input type="input" class="form-control" name="teamA">
+            </div>
+            <div class="mb-3">
+                <div>TeamB</div>
+              <input type="input" class="form-control" name="teamB">
+            </div>
+            <div class="mb-3">
+                <div>Score</div>
+              <input type="input" class="form-control" name="score">
+            <div class="mb-3">
+                <div class="mb-3">
+                    <label for="dateInput" class="form-label">Select Date</label>
+                    <input type="date" class="form-control" id="dateInput" name="date">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+      <% } else { %>
+            <form action=<%= "/editMatchForm/" + index %> method="POST">
+                <div class="mb-3">
+                  <div>League Name</div>
+                  <input type="input" class="form-control" value="<%= matchInfo[index].league %>" name="league">
+                </div>
+                <div class="mb-3">
+                  <div>TeamA</div>
+                  <input type="input" class="form-control" value="<%= matchInfo[index].teamA %>" name="teamA">
+                </div>
+                <div class="mb-3">
+                    <div>TeamB</div>
+                  <input type="input" class="form-control" value="<%= matchInfo[index].teamB %>" name="teamB">
+                </div>
+                <div class="mb-3">
+                    <div>Score</div>
+                  <input type="input" class="form-control" value="<%= matchInfo[index].score %>" name="score">
+                <div class="mb-3">
+                    <div class="mb-3">
+                        <label for="dateInput" class="form-label">Select Date</label>
+                        <input type="date" class="form-control" value="<%= matchInfo[index].date %>" id="dateInput" name="date">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+      <% } %>
+            
+    </div>
+  </div>
+
+<%- include ("footer.ejs") %>

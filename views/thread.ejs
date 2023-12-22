@@ -1,0 +1,54 @@
+<%- include ("header.ejs") %>
+
+<!-- Main Content -->
+<div class="container my-4">
+
+    <!-- Thread Title and Original Post -->
+    <div class="mb-4">
+        <h2 class="mb-3"><%= thread.title %></h2>
+        <div class="p-3 border bg-light">
+            <p><strong><%= thread.author %>:</strong><%= thread.originalPost %></p>
+            <p class="card-text"><small class="text-muted">Date: <%= thread.datePosted %></small></p>
+        </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="mb-4">
+        <h4>Comments</h4>
+        <div class="list-group">
+            <!-- Single Comment -->
+            <div class="list-group-item">
+                <% for (let i = 0; i < thread.comments.length; i++) {%>
+                <p><strong><%= thread.comments[i].author %>:</strong><%= thread.comments[i].text %></p>
+                <p class="card-text"><small class="text-muted">Date: <%= thread.comments[i].datePosted %></small></p>
+                <% } %>
+            </div>
+            <!-- Repeat for other comments -->
+        </div>
+    </div>
+
+    <!-- Add a Comment Form -->
+    <div>
+        <h4>Add a Comment</h4>
+        <form action= <%= "/submitComment/" + index %> method="post">
+            <div class="mb-3">
+                <label for="threadTitle" class="form-label">Auther</label>
+                <input type="text" class="form-control" id="threadTitle" name="author" placeholder="Your user name">
+            </div>
+            <div class="mb-3">
+                <label for="threadTitle" class="form-label">Comment</label>
+                <textarea class="form-control" id="newComment" rows="3" name="text" placeholder="Your comment"></textarea>
+            </div>
+            <div class="mb-3" style="display: none;">
+                <label for="dateInput" class="form-label">Date</label>
+                <input type="date" class="form-control" value="<%= date %>" id="dateInput" name="datePosted">
+            </div>
+            <button type="submit" class="btn btn-primary">Post Comment</button>
+        </form>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<%- include ("footer.ejs") %>

@@ -1,0 +1,70 @@
+<%- include ("header.ejs") %>
+
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold text-body-emphasis">Teams</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">Famous soccer teams in the world! <br> You can also add yours and delete or edit old ones!</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <button onclick="jumpToSection('teams')" class="btn btn-primary btn-lg px-4 gap-3">Click to take a look at Teams</button>
+      </div>
+    </div>
+  </div>
+
+<div class="album py-5 bg-body-tertiary" id="teams">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <!-- previous teams -->
+        <% for (let i = 0; i < team.length; i++) { %>
+        <div class="col">
+          <div class="card shadow-sm">
+            <% if (locals.teamPic) { %>
+            <img src="<%= teamPic[i] %>" alt="Team Picture" width="150" height="150">
+            <% } %>
+            <div class="card-body">
+              <p class="card-text"><%= team[i].teamName %></p>
+              <p class="card-text">Founding Year: <%= team[i].year %></p>
+              <p class="card-text">Stadium: <%= team[i].stadium %></p>
+              <p class="card-text">Brief History: <%= team[i].history %></p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <form action=<%= "/deleteTeam/" + i %> method="get">
+                    <button type="submit" class="btn btn-sm btn-outline-secondary">Delete</button>
+                  </form>
+                  <form action= <%= "/editTeam/" + i %>  method="get">
+                    <button type="submit" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } %>
+        <!-- add new team -->
+          <div class="col">
+            <div class="card shadow-sm">
+              <img src="/images/soccer-ball-goal.webp" alt="Team Picture" width="200" height="150">
+              <div class="card-body">
+                <p class="card-text">Add Your Own Team!</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <form action="/newteam" method="GET">
+                    <button type="submit" class="btn btn-sm btn-outline-secondary">Add</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function jumpToSection(sectionId) {
+        var element = document.getElementById(sectionId);
+        element.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
+    </script>
+
+<%- include ("footer.ejs") %>
